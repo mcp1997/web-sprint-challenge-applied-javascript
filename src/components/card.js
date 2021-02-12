@@ -1,4 +1,35 @@
+import axios from 'axios'
+
 const Card = (article) => {
+
+  const card = document.createElement('div');
+  const cardTitle = document.createElement('div');
+  const author = document.createElement('div');
+  const imgContainer = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardAuthor = document.createElement('span');
+
+  card.classList.add('card');
+  cardTitle.classList.add('headline');
+  author.classList.add('author');
+  imgContainer.classList.add('img-container');
+
+  card.appendChild(cardTitle);
+  card.appendChild(author);
+  author.appendChild(imgContainer);
+  author.appendChild(cardAuthor);
+  imgContainer.appendChild(cardImg);
+
+  cardTitle.textContent = article.headline;
+  cardImg.src = article.authorPhoto;
+  cardAuthor.textContent = article.authorName;
+
+  card.addEventListener('click', (event) => {
+    console.log(article.headline);
+  });
+
+  return card;
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -20,6 +51,53 @@ const Card = (article) => {
 }
 
 const cardAppender = (selector) => {
+
+  axios.get('https://lambda-times-api.herokuapp.com/articles')
+    .then( res => {
+      console.log(res.data.articles);
+      const array1 = res.data.articles.bootstrap;
+      array1.forEach( (item) => {
+        const newCard = Card(item);
+        console.log(newCard);
+        const parent = document.querySelector(selector);
+        parent.appendChild(newCard);
+      });
+
+      const array2 = res.data.articles.javascript;
+      array2.forEach( (item) => {
+        const newCard = Card(item);
+        console.log(newCard);
+        const parent = document.querySelector(selector);
+        parent.appendChild(newCard);
+      });
+
+      const array3 = res.data.articles.jquery;
+      array3.forEach( (item) => {
+        const newCard = Card(item);
+        console.log(newCard);
+        const parent = document.querySelector(selector);
+        parent.appendChild(newCard);
+      });
+
+      const array4 = res.data.articles.node;
+      array4.forEach( (item) => {
+        const newCard = Card(item);
+        console.log(newCard);
+        const parent = document.querySelector(selector);
+        parent.appendChild(newCard);
+      });
+
+      const array5 = res.data.articles.technology;
+      array5.forEach( (item) => {
+        const newCard = Card(item);
+        console.log(newCard);
+        const parent = document.querySelector(selector);
+        parent.appendChild(newCard);
+      });
+    })
+    .catch( err => {
+      console.log('data could not be retrieved');
+    })
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
